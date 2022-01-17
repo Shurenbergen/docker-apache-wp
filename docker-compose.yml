@@ -16,12 +16,12 @@ services:
   wordpress:
     depends_on:
       - db
-    image: test7:latest 
+    image: wpcontainer:latest 
     ports:
       - 192.168.0.49:80:80
     restart: always
     volumes:
-      - ./wp-content:/var/www/yourdomain/wordpress/wp-content
+      - ./wp-content:/var/www/wordpress/wp-content
     environment:
       WORDPRESS_DB_HOST: db:3306
       WORDPRESS_DB_USER: wordpressuser 
