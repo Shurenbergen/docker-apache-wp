@@ -16,9 +16,9 @@ services:
   wordpress:
     depends_on:
       - db
-    image: test:latest 
+    image: testapache:latest 
     ports:
-      - 192.168.0.46:80:80
+      - 192.168.0.49:80:80
     restart: always
     volumes:
       - ./wp-content:/var/www/server-infra-s4.ru/wordpress/wp-content
