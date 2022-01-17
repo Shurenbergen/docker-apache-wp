@@ -16,18 +16,12 @@ services:
   wordpress:
     depends_on:
       - db
-<<<<<<< HEAD
-    image: testapache:latest 
+    image: test7:latest 
     ports:
       - 192.168.0.49:80:80
-=======
-    image: test:latest 
-    ports:
-      - 192.168.0.46:80:80
->>>>>>> 380235ad0c69889c29eeefab5152b44eb650d17d
     restart: always
     volumes:
-      - ./wp-content:/var/www/server-infra-s4.ru/wordpress/wp-content
+      - ./wp-content:/var/www/yourdomain/wordpress/wp-content
     environment:
       WORDPRESS_DB_HOST: db:3306
       WORDPRESS_DB_USER: wordpressuser 

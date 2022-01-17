@@ -12,24 +12,26 @@ RUN apt-get update && apt-get install -y \
     libapache2-mod-php \
     php-mysql*
 
-RUN chown -R www-data:www-data /var/www
-COPY server-infra-s4.ru.conf /etc/apache2/sites-available
+RUN mkdir /var/www/yourdomain
+
+RUN mkdir /var/www/yourdomain/wordpress
+
+COPY yourdomain.conf /etc/apache2/sites-available
 
 RUN /usr/sbin/a2enmod rewrite
-RUN /usr/sbin/a2ensite server-infra-s4.ru.conf
+RUN /usr/sbin/a2ensite yourdomain.conf
 RUN /usr/sbin/a2dissite 000-default.conf
 
-RUN mkdir /var/www/server-infra-s4.ru
-RUN chown -R www-data:www-data /var/www/server-infra-s4.ru
+RUN /usr/bin/find /var/www/yourdomain/wordpress/ -type d -exec chmod 750 {} \;
+RUN /usr/bin/find /var/www/yourdomain/wordpress/ -type f -exec chmod 640 {} \;
 
-RUN mkdir /var/www/server-infra-s4.ru/wordpress
+ADD wordpress/ /var/www/yourdomain/wordpress/ 
+COPY wp-config.php /var/www/yourdomain/wordpress
 
-RUN /usr/bin/find /var/www/server-infra-s4.ru/wordpress/ -type d -exec chmod 750 {} \;
-RUN /usr/bin/find /var/www/server-infra-s4.ru/wordpress/ -type f -exec chmod 640 {} \;
-ADD wordpress/ /var/www/server-infra-s4.ru/wordpress/ 
-COPY wp-config.php /var/www/server-infra-s4.ru/wordpress
-RUN chown -R www-data:www-data /var/www/server-infra-s4.ru/wordpress
-RUN network=host
+RUN chown -R www-data:www-data \
+    /var/www \
+    /var/www/yourdomain \
+    /var/www/yourdomain/wordpress*
 
 EXPOSE 80
 CMD ["apachectl","-DFOREGROUND"]
