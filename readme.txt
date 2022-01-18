@@ -2,6 +2,11 @@
 #Make docker image
 $ docker build -t your_build_name .
 
+#upd docker-compose file, write your build name in service
+
+#check wp-config.php and yourdomain.conf
+#rename yourdomain.conf
+
 #Get starting two containers with docker-compose (Apache Web Server with WordPress & MySQL)
 $ docker-compose up
 

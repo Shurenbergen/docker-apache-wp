@@ -16,7 +16,7 @@ services:
   wordpress:
     depends_on:
       - db
-    image: wpcontainer:latest 
+    image: yourbuild:latest 
     ports:
       - 192.168.0.49:80:80
     restart: always
